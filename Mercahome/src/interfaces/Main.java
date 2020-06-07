@@ -197,7 +197,7 @@ public class Main extends JFrame {
 	private class BtnNuevoUserActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent arg0) {
 			IoDatos ioDatos = new IoDatos();
-			ioDatos.escribirFichero(vEmpleados,textFieldUserSign.getText(),textFieldPassSign.getText());
+			ioDatos.escribirFichero(vEmpleados);
 		}
 	}
 
@@ -338,7 +338,7 @@ public class Main extends JFrame {
 			
 			
 			
-			ioDatos.escribirFichero(vEmpleados, textFieldUserSign.getText(), textFieldPassSign.getText());
+			ioDatos.escribirFichero(vEmpleados);
 			textFieldUserSign.setText("USUARIO");
 			textFieldPassSign.setText("CONTRASEÑA");
 			

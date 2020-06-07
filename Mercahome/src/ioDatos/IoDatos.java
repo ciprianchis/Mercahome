@@ -1,9 +1,13 @@
 package ioDatos;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -53,13 +57,13 @@ public class IoDatos {
 	}
 	
 
-	public ArrayList<Empleado> cargarDatos() {
-		ArrayList<Empleado> vEmpleados = new ArrayList();
+public static void escribirFichero(ArrayList<Empleado> vEmpleados) {
 		
-		Scanner leer = null;
-
-		File empleados = new File("empleados.txt");
-
+		
+		File empleados = new File("empleados.dat");
+		FileOutputStream fo = null;
+		ObjectOutputStream escribir = null;
+		
 		if (!empleados.exists()) {
 			try {
 				empleados.createNewFile();
@@ -68,69 +72,76 @@ public class IoDatos {
 				e.printStackTrace();
 			}
 		}
-
+		
 		try {
-			leer = new Scanner(empleados);
-
-			while (leer.hasNext()) {
-				String linea = leer.nextLine();
-				Empleado empleado= obtenerEmpleado(linea);
-				
-				for (Empleado emple : vEmpleados) {
-					emple = empleado;
-					break;
-				}
-
-			}
+			fo = new FileOutputStream(empleados);
+			escribir = new ObjectOutputStream(fo);
+			
+			escribir.writeObject(vEmpleados);
+			
+			
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();		}
-
-		
-		
-		
-		return vEmpleados;
-	}
-	
-	
-	public void escribirFichero(ArrayList<Empleado> vEmpleados, String nombre, String pass) {
-		FileWriter fw = null;
-		PrintWriter pw = null;
-		File empleados = new File("empleados.txt");
-
-		if (!empleados.exists()) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
 			try {
-				empleados.createNewFile();
-			} catch (IOException e) {
-				System.out.println("Error al crear el fichero");
-			}
-		} else {
-
-
-			try {
-				fw = new FileWriter(empleados,true);
-				pw = new PrintWriter(fw);
-				
-				Empleado empleado = new Empleado(nombre, pass);
-				
-				for (Empleado emple: vEmpleados) {
-					pw.println(empleado.getNombre() + "-" + emple.getPasswd());
-					break;
-				}
-				
-				
-			} catch (FileNotFoundException e) {
-				System.out.println("ERROR AL GUARDAR EL FICHERO");
-				e.printStackTrace();
+				fo.close();
+				escribir.close();
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			}finally {
-				pw.close();
 			}
-
+			
 		}
 	}
+	
+
+	public ArrayList<Empleado> cargarDatos() {
+		
+		File empleados = new File("empleados.dat");
+		FileInputStream fi = null;
+		ObjectInputStream leer = null;
+		ArrayList<Empleado> vEmpleados = new ArrayList(); 
+		
+		if (!empleados.exists()) {
+			try {
+				empleados.createNewFile();
+				return vEmpleados;
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		
+		try {
+			fi = new FileInputStream(empleados);
+			leer = new ObjectInputStream(fi);
+			
+			
+			vEmpleados = (ArrayList<Empleado>) leer.readObject();
+			
+		
+			
+			
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			System.out.println("Fin de lectura");
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return vEmpleados;
+		
+		
+	}
+	
 	
 	public static boolean comprobarEmple(String nombre, String passwd) {
 		boolean correcto = false;
@@ -146,19 +157,6 @@ public class IoDatos {
 		
 		return false;
 		
-	}
-	
-	private Empleado obtenerEmpleado(String linea) {
-		String nombre ="";
-		String passwd ="";
-		int caracter = 0;
-		nombre = linea.substring(0, linea.indexOf("-")).trim();
-		passwd = linea.substring(linea.indexOf(" ")).trim();
-		Empleado empleado = new Empleado(nombre, passwd);
-		
-		
-		return empleado;
-
 	}
 
 	
