@@ -1,4 +1,4 @@
-package Interfaces;
+package interfaces;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
@@ -12,6 +12,8 @@ import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
 import javax.swing.JButton;
+import javax.swing.border.LineBorder;
+import java.awt.Color;
 
 public class Main extends JFrame {
 
@@ -31,6 +33,7 @@ public class Main extends JFrame {
 	private JTextField textField;
 	private JButton btnNuevoUser;
 	private JTextField textField_1;
+	private JButton btnNewButton;
 
 	/**
 	 * Launch the application.
@@ -66,7 +69,8 @@ public class Main extends JFrame {
 		contentPane.add(lblNewLogin);
 		
 		panel = new JPanel();
-		panel.setBounds(20, 51, 192, 199);
+		panel.setBorder(new LineBorder(new Color(0, 0, 0)));
+		panel.setBounds(10, 51, 182, 199);
 		contentPane.add(panel);
 		panel.setLayout(null);
 		
@@ -86,12 +90,12 @@ public class Main extends JFrame {
 		textFieldNombre = new JTextField();
 		textFieldNombre.setHorizontalAlignment(SwingConstants.CENTER);
 		textFieldNombre.setText("USUARIO");
-		textFieldNombre.setBounds(96, 42, 86, 20);
+		textFieldNombre.setBounds(90, 42, 86, 20);
 		panel.add(textFieldNombre);
 		textFieldNombre.setColumns(10);
 		
 		passwordField = new JPasswordField();
-		passwordField.setBounds(96, 77, 86, 20);
+		passwordField.setBounds(90, 77, 86, 20);
 		panel.add(passwordField);
 		
 		btnEntrar = new JButton("ENTRAR");
@@ -99,8 +103,9 @@ public class Main extends JFrame {
 		panel.add(btnEntrar);
 		
 		panel_1 = new JPanel();
+		panel_1.setBorder(new LineBorder(new Color(0, 0, 0)));
 		panel_1.setLayout(null);
-		panel_1.setBounds(232, 51, 192, 199);
+		panel_1.setBounds(243, 51, 181, 199);
 		contentPane.add(panel_1);
 		
 		lblNewsIGNIN = new JLabel("SIGN IN");
@@ -120,16 +125,20 @@ public class Main extends JFrame {
 		textField.setText("USUARIO");
 		textField.setHorizontalAlignment(SwingConstants.CENTER);
 		textField.setColumns(10);
-		textField.setBounds(96, 42, 86, 20);
+		textField.setBounds(91, 42, 86, 20);
 		panel_1.add(textField);
 		
 		btnNuevoUser = new JButton("CREAR USUARIO");
-		btnNuevoUser.setBounds(41, 142, 115, 23);
+		btnNuevoUser.setBounds(23, 142, 133, 23);
 		panel_1.add(btnNuevoUser);
 		
 		textField_1 = new JTextField();
-		textField_1.setBounds(96, 74, 86, 20);
+		textField_1.setBounds(91, 77, 86, 20);
 		panel_1.add(textField_1);
 		textField_1.setColumns(10);
+		
+		btnNewButton = new JButton("\u2194");
+		btnNewButton.setBounds(193, 50, 50, 23);
+		contentPane.add(btnNewButton);
 	}
 }
