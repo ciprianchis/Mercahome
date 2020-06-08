@@ -1,5 +1,9 @@
 package clases;
 
+import java.util.Date;
+
+import javax.print.attribute.standard.DateTimeAtCompleted;
+
 public class Compra {
 	private int num_factura_compra; 
 	private String dni_empleado;
@@ -7,8 +11,8 @@ public class Compra {
     private String num_lote;
 	private String forma_pago_compra;
     private boolean finalizado_compra; 
-	private String pagado_compra;
-	private String fecha_compra;
+	private boolean pagado_compra;
+	private Date fecha_compra;
 	private String observaciones_compra; 
 	private int unidades;
 	private double coste_compra;
@@ -16,7 +20,7 @@ public class Compra {
 	
 	
 	public Compra(int num_factura_compra, String dni_empleado, String cif_proveedor, String num_lote,
-			String forma_pago_compra, boolean finalizado_compra, String pagado_compra, String fecha_compra,
+			String forma_pago_compra, boolean finalizado_compra, boolean pagado_compra, Date fecha_compra,
 			String observaciones_compra, int unidades, double coste_compra, int cod_articulo) {
 		this.num_factura_compra = num_factura_compra;
 		this.dni_empleado = dni_empleado;
@@ -32,6 +36,7 @@ public class Compra {
 		this.cod_articulo = cod_articulo;
 	}
 
+	
 
 	public int getNum_factura_compra() {
 		return num_factura_compra;
@@ -93,22 +98,22 @@ public class Compra {
 	}
 
 
-	public String getPagado_compra() {
+	public Boolean getPagado_compra() {
 		return pagado_compra;
 	}
 
 
-	public void setPagado_compra(String pagado_compra) {
+	public void setPagado_compra(Boolean pagado_compra) {
 		this.pagado_compra = pagado_compra;
 	}
 
 
-	public String getFecha_compra() {
+	public Date getFecha_compra() {
 		return fecha_compra;
 	}
 
 
-	public void setFecha_compra(String fecha_compra) {
+	public void setFecha_compra(Date fecha_compra) {
 		this.fecha_compra = fecha_compra;
 	}
 

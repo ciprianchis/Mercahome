@@ -11,6 +11,7 @@ import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -21,7 +22,7 @@ import clases.Empleado;
 
 public class IoDatos {
 
-	private final static String url = "jdbc:mysql://localhost:3306/mercahome";
+	private final static String url = "jdbc:mysql://localhost:3306/mercahome?autoReconnect=true&useSSL=false\"";
 	private final static String usuario = "root";
 	private final static String passwd = "root";
 	private static Connection con;
@@ -30,7 +31,7 @@ public class IoDatos {
 		con = null;
 	}
 	
-	public static void conectarBD() {
+	public void conectarBD() {
 		if (con == null) {
 			try {
 				con = DriverManager.getConnection(url, usuario, passwd);
@@ -44,7 +45,7 @@ public class IoDatos {
 
 	}
 
-	public static void desconectarBD() {
+	public void desconectarBD() {
 		if (con != null) {
 			try {
 				con.close();
@@ -56,8 +57,11 @@ public class IoDatos {
 		}
 	}
 	
+	
 
-public static void escribirFichero(ArrayList<Empleado> vEmpleados) {
+
+
+	public static void escribirFichero(ArrayList<Empleado> vEmpleados) {
 		
 		
 		File empleados = new File("empleados.dat");
